@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bh5d4xdeyo8nw"]
+
+[ext_resource type="Script" uid="uid://q5verb86ienj" path="res://proc_geo.gd" id="1_acxvi"]
+[ext_resource type="Texture2D" uid="uid://j1yrrn3rbocp" path="res://MeterGrid.png" id="2_pmt41"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_acxvi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_pmt41"]
+sky_material = SubResource("ProceduralSkyMaterial_acxvi")
+
+[sub_resource type="Environment" id="Environment_7dk57"]
+background_mode = 2
+sky = SubResource("Sky_pmt41")
+tonemap_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_7dk57"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ha8l"]
+albedo_color = Color(0.585062, 0.585062, 0.5850621, 1)
+albedo_texture = ExtResource("2_pmt41")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="main2" type="Node3D" unique_id=1008783334]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1687664768]
+environment = SubResource("Environment_7dk57")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=570825467]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="ProcGeo" type="MeshInstance3D" parent="." unique_id=971275691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("ArrayMesh_7dk57")
+script = ExtResource("1_acxvi")
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=87591001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(20, 0.5, 20)
+material = SubResource("StandardMaterial3D_2ha8l")
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1251288822]
+transform = Transform3D(0.8881124, 0.23418981, -0.395489, -8.050502e-09, 0.8604576, 0.5095221, 0.4596264, -0.4525129, 0.76418304, -1.0336452, 1.4948456, 2.5534172)

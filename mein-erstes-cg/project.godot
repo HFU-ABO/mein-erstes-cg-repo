@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MeinErstesCG"
-run/main_scene="uid://do7t0377s0b3f"
+run/main_scene="uid://bh5d4xdeyo8nw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
