@@ -31,7 +31,7 @@ func _physics_process(delta):
 	# Handle Mouse speed to rotate player and tilt camera (using the CameraPivot setup)
 		var mouse_vel = Input.get_last_mouse_velocity()
 		var new_rot_y = rotation.y - mouse_vel.x * delta * camera_pan_speed
-		var new_rot_x = clampf($CameraPivot.rotation.x + mouse_vel.y * delta * camera_pan_speed, -0.27 * PI/2, 0.8 * PI/2)
+		var new_rot_x = clampf($CameraPivot.rotation.x + mouse_vel.y * delta * camera_pan_speed, -0.8 * PI/2, 0.8 * PI/2)
 		rotation.y = new_rot_y
 		$CameraPivot.rotation.x = new_rot_x
 
