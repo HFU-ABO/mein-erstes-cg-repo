@@ -27,22 +27,18 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	
-	# ESC-Taste zum Freigeben/Einfangen der Maus
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	move_and_slide()
-	
-	
-func _input(event):
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			# Spieler um die Y-Achse drehen (Links / Rechts)
-			rotation.y -= event.relative.x * camera_pan_speed
-			
-			# Kamera um die X-Achse neigen (Hoch / Runter) und limitieren
-			var target_rot_x = $CameraPivot.rotation.x - event.relative.y * camera_pan_speed
-			$CameraPivot.rotation.x = clampf(target_rot_x, -0.8 * PI/2, 0.8 * PI/2)
+	# Handle Mouse speed to rotate player and tilt camera (using the CameraPivot setup)
+		var mouse_vel = Input.get_last_mouse_velocity()
+		var new_rot_y = rotation.y - mouse_vel.x * delta * camera_pan_speed
+		var new_rot_x = clampf($CameraPivot.rotation.x + mouse_vel.y * delta * camera_pan_speed, -0.27 * PI/2, 0.8 * PI/2)
+		rotation.y = new_rot_y
+		$CameraPivot.rotation.x = new_rot_x
+
+		if Input.is_action_just_pressed("ui_cancel"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		if Input.is_action_just_pressed("ui_cancel"):
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+	move_and_slide()
